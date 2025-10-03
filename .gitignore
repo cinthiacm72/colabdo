@@ -1,0 +1,48 @@
+# ---------------------------------
+# Node modules
+# ---------------------------------
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# ---------------------------------
+# Build / distribution folders
+# ---------------------------------
+client/dist/
+client/build/
+server/dist/
+
+# ---------------------------------
+# Logs
+# ---------------------------------
+*.log
+logs/
+
+# ---------------------------------
+# Editor and OS files
+# ---------------------------------
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---------------------------------
+# Environment variables
+# ---------------------------------
+.env
+*.env
+*.env.*
+server/.env
+client/.env
+.env.local
+.env.production
+.env.development.local
+
+# ---------------------------------
+# Optional
+# ---------------------------------
+*.cache

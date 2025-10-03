@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Masonry debug test</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        margin: 20px;
+        background: #f5f7fb;
+        color: #222;
+      }
+      h1 {
+        margin-bottom: 16px;
+      }
+
+      /* Grid container */
+      ul.task-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-auto-rows: 4px; /* base para los cálculos */
+        gap: 8px;
+        align-items: start;
+      }
+
+      /* Grid items */
+      li.task-item {
+        background: linear-gradient(180deg, #ffffff, #f0f4f8);
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(20, 30, 60, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        transition: box-shadow 0.2s ease;
+        /* grid-row-end se setea desde JS */
+      }
+
+      li.task-item:hover {
+        box-shadow: 0 10px 30px rgba(20, 30, 60, 0.12);
+      }
+
+      li.task-item h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+      li.task-item p {
+        margin: 0;
+        line-height: 1.35;
+      }
+
+      /* visual helpers */
+      .debug {
+        margin-top: 18px;
+        font-size: 13px;
+        color: #333;
+      }
+      .small {
+        font-size: 12px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Masonry grid — debug</h1>
+
+    <p class="small">
+      Abri la consola (F12) y fijate los logs de cada ítem (height / rowSpan).
+    </p>
+
+    <ul class="task-list" id="grid">
+      <li class="task-item">
+        <h3>Tarea 1</h3>
+        <p>Contenido muy corto.</p>
+      </li>
+      <li class="task-item">
+        <h3>Tarea 2</h3>
+        <p>Contenido con<br />varias<br />líneas<br />para simular altura.</p>
+      </li>
+      <li class="task-item">
+        <h3>Tarea 3</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id.
+        </p>
+      </li>
+      <li class="task-item">
+        <h3>Tarea 4</h3>
+        <p>
+          Texto en muchas líneas para probar la altura y forzar el cálculo de
+          row-span. Esto ayuda a ver si el JS aplica correctamente grid-row-end.
+        </p>
+      </li>
+      <li class="task-item">
+        <h3>Tarea 5</h3>
+        <p>Pequeño.</p>
+      </li>
+      <li class="task-item">
+        <h3>Tarea 6</h3>
+        <p>
+          Un bloque largo con bastante texto para asegurar que la tarjeta ocupe
+          varias filas y el cálculo funcione correctamente aun cuando la ventana
+          cambie de tamaño.
+        </p>
+      </li>
+    </ul>
+
+    <div class="debug" id="debugInfo"></div>
+
+    <script>
+      const grid = document.getElementById("grid");
+      const debugInfo = document.getElementById("debugInfo");
+
+      function getNumericValue(value) {
+        // parseFloat manejará "16px" o "1rem" (aunque computedStyle normalmente devuelve px)
+        const n = parseFloat(value);
+        return isNaN(n) ? 0 : n;
+      }
+
+      function resizeMasonryItem(item) {
+        if (!grid) return;
+        const computed = window.getComputedStyle(grid);
+        const rowHeight = getNumericValue(
+          computed.getPropertyValue("grid-auto-rows")
+        );
+        // try gap, fall back to grid-row-gap for older browsers
+        const gapVal =
+          computed.getPropertyValue("gap") ||
+          computed.getPropertyValue("grid-row-gap");
+        const rowGap = getNumericValue(gapVal);
+
+        const itemHeight = item.getBoundingClientRect().height;
+        const rowSpan = Math.max(
+          1,
+          Math.ceil((itemHeight + rowGap) / (rowHeight + rowGap))
+        );
+
+        item.style.gridRowEnd = `span ${rowSpan}`;
+        // data attribute para debug visual
+        item.setAttribute("data-row-span", rowSpan);
+
+        console.log(
+          `Masonry: ${
+            item.querySelector("h3")?.textContent || "item"
+          } -> height: ${Math.round(
+            itemHeight
+          )}px, rowSpan: ${rowSpan}, rowHeight: ${rowHeight}px, gap: ${rowGap}px`
+        );
+      }
+
+      function resizeAllMasonryItems() {
+        if (!grid) {
+          console.warn("Grid not found");
+          return;
+        }
+        const allItems = grid.querySelectorAll(".task-item");
+        if (!allItems.length) {
+          console.warn("No items found with selector .task-item");
+          return;
+        }
+        allItems.forEach(resizeMasonryItem);
+        debugInfo.textContent = `Items: ${
+          allItems.length
+        } — Recalculated at ${new Date().toLocaleTimeString()}`;
+      }
+
+      // debounce via rAF for resize
+      let rafId = null;
+      function onResize() {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          resizeAllMasonryItems();
+          rafId = null;
+        });
+      }
+
+      // Use ResizeObserver to watch items that change height (more robust)
+      function observeItems() {
+        if (!window.ResizeObserver) return; // fallback
+        const ro = new ResizeObserver((entries) => {
+          for (const entry of entries) {
+            // each entry.target es el LI que cambió
+            resizeMasonryItem(entry.target);
+          }
+        });
+        // observe every item
+        const items = grid.querySelectorAll(".task-item");
+        items.forEach((i) => ro.observe(i));
+
+        // return disconnector
+        return () => ro.disconnect();
+      }
+
+      // Ensure we run after load and also after a small timeout (for webfonts/images)
+      window.addEventListener("load", () => {
+        // small delay to ensure layout stable
+        setTimeout(() => {
+          resizeAllMasonryItems();
+          // attach observer
+          const disconnectObserver = observeItems();
+          // attach window resize
+          window.addEventListener("resize", onResize);
+          // clean up on unload
+          window.addEventListener("beforeunload", () => {
+            window.removeEventListener("resize", onResize);
+            if (disconnectObserver) disconnectObserver();
+          });
+        }, 50);
+      });
+
+      // also in case you add items dynamically, expose function:
+      window.recalcMasonry = resizeAllMasonryItems;
+    </script>
+  </body>
+</html>
