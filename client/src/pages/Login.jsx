@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import InputPassword from "../components/inputPassword";
+import InputPassword from "../components/InputPassword";
 import FormMessages from "../components/FormMessages";
 import ButtonGoBack from "../components/ButtonGoBack";
 
