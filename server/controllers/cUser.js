@@ -39,7 +39,6 @@ const cUser = {
           httpOnly: true,
           sameSite: "none",
           secure: true,
-          domain: ".vercel.app", // 👈 importante
           path: "/",
         })
         .status(200)
