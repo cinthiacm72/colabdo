@@ -37,7 +37,15 @@ self.addEventListener("fetch", (event) => {
   // Para todo lo demás, sí aplicás cache-first
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      if (response) {
+        return response; // devolver desde cache
+      }
+      return fetch(event.request).catch(() => {
+        // Fallback opcional si falla la red
+        if (event.request.destination === "document") {
+          return caches.match("/index.html");
+        }
+      });
     })
   );
   /*  event.respondWith(
