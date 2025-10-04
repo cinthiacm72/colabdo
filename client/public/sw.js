@@ -27,9 +27,22 @@ self.addEventListener("activate", (event) => {
 
 // Interceptar requests y servir desde cache si es posible
 self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+
+  // 👉 Si la request va a tu API, no la cachees, dejala pasar
+  if (url.origin.includes("colabdo-server.vercel.app")) {
+    return;
+  }
+
+  // Para todo lo demás, sí aplicás cache-first
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     })
   );
+  /*  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  ); */
 });
