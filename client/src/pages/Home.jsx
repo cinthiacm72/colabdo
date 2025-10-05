@@ -12,6 +12,9 @@ const Home = () => {
   const INITIAL_TASK_TYPE = "totales";
   const { user } = useContext(AuthContext);
 
+  // ✅ DEFINIR EL TOKEN UNA SOLA VEZ AQUÍ
+  const token = localStorage.getItem("token");
+
   const [openModalDialog, setOpenModalDialog] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [taskIdToUpdate, setTaskIdToUpdate] = useState(undefined);
@@ -58,8 +61,6 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
     const countsByPriority = async () => {
-      // ✅ CAMBIO: Obtener el token de localStorage
-      const token = localStorage.getItem("token");
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/priority",
         {
@@ -83,9 +84,6 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
     const countByOverdue = async () => {
-      // ✅ CAMBIO: Obtener el token de localStorage
-      const token = localStorage.getItem("token");
-
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/overdue",
         {
@@ -108,9 +106,6 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
     const countByDueToday = async () => {
-      // ✅ CAMBIO: Obtener el token de localStorage
-      const token = localStorage.getItem("token");
-
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/today",
         {
