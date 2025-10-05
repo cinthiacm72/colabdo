@@ -45,10 +45,12 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (!user) return;
     fetchTasks({});
-  }, []);
+  }, [user]);
 
   useEffect(() => {
+    if (!user) return;
     const countsByPriority = async () => {
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/priority",
@@ -62,9 +64,10 @@ const Home = () => {
       setPriorityCounts(json);
     };
     countsByPriority();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
+    if (!user) return;
     const countByOverdue = async () => {
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/overdue",
@@ -77,9 +80,10 @@ const Home = () => {
       setOverdueCount(json);
     };
     countByOverdue();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
+    if (!user) return;
     const countByDueToday = async () => {
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/today",
@@ -92,7 +96,7 @@ const Home = () => {
       setTodayCount(json);
     };
     countByDueToday();
-  }, []);
+  }, [user]);
 
   return (
     <>
