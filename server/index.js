@@ -15,9 +15,10 @@ const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 //app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://colabdo-client.vercel.app" || clientUrl,
+    origin: clientUrl,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
