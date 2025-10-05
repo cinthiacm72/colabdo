@@ -33,11 +33,12 @@ const Home = () => {
 
       const res = await fetch(url.toString(), {
         method: "GET",
-        credentials: "include",
+        // ❌ ELIMINADO: credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+          Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
+          // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
+          // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
         },
       });
 
@@ -57,15 +58,18 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
     const countsByPriority = async () => {
+      // ✅ CAMBIO: Obtener el token de localStorage
+      const token = localStorage.getItem("token");
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/priority",
         {
           method: "GET",
-          credentials: "include",
+          // ❌ ELIMINADO: credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+            Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
+            // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
+            // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
           },
         }
       );
@@ -79,15 +83,19 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
     const countByOverdue = async () => {
+      // ✅ CAMBIO: Obtener el token de localStorage
+      const token = localStorage.getItem("token");
+
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/overdue",
         {
           method: "GET",
-          credentials: "include",
+          // ❌ ELIMINADO: credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+            Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
+            // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
+            // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
           },
         }
       );
@@ -100,15 +108,19 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
     const countByDueToday = async () => {
+      // ✅ CAMBIO: Obtener el token de localStorage
+      const token = localStorage.getItem("token");
+
       const res = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/today",
         {
           method: "GET",
-          credentials: "include",
+          // ❌ ELIMINADO: credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+            Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
+            // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
+            // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
           },
         }
       );

@@ -29,11 +29,9 @@ const Login = () => {
     try {
       const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/login", {
         method: "POST",
-        credentials: "include",
+        // ❌ ELIMINADO: credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
         },
         body: JSON.stringify(credentials),
       });
@@ -47,6 +45,14 @@ const Login = () => {
           details: data.details || [],
         };
       }
+
+      // ✅ NUEVO: Guardar el token en localStorage
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
+      // ✅ NUEVO: Guardar el usuario en localStorage (opcional, ya lo tienes en el contexto)
+      localStorage.setItem("user", JSON.stringify(data.details));
 
       setMessage({
         status: "success",

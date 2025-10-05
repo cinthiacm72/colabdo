@@ -29,6 +29,9 @@ const AuthReducer = (state, action) => {
         error: action.payload,
       };
     case "LOGOUT":
+      // ✅ AGREGAR: Limpiar localStorage
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         user: null,
         loading: false,
@@ -50,7 +53,9 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
+    if (state.user) {
+      localStorage.setItem("user", JSON.stringify(state.user));
+    }
   }, [state.user]);
 
   return (
