@@ -34,6 +34,11 @@ const Home = () => {
       const res = await fetch(url.toString(), {
         method: "GET",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+        },
       });
 
       let json = await res.json();
@@ -57,6 +62,11 @@ const Home = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+          },
         }
       );
       const json = await res.json();
@@ -74,6 +84,11 @@ const Home = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+          },
         }
       );
       const json = await res.json();
@@ -90,6 +105,11 @@ const Home = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+          },
         }
       );
       const json = await res.json();
