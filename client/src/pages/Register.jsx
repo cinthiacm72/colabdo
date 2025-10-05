@@ -33,7 +33,6 @@ const Register = () => {
         {
           method: "POST",
           body: formData,
-          credentials: "include", // envía la cookie JWT
         }
       );
 
@@ -71,11 +70,8 @@ const Register = () => {
 
       const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/register", {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
         },
         body: JSON.stringify(newUser),
       });
@@ -103,7 +99,6 @@ const Register = () => {
       if (urlFiles.length > 0) {
         await fetch(`${import.meta.env.VITE_BACKEND_URL}/upload/delete`, {
           method: "POST",
-          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ files: urlFiles }),
         });

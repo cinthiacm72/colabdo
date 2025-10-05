@@ -5,6 +5,8 @@ import FormMessages from "./FormMessages";
 const ModalContentCreate = ({ setData, onClose, setClosing }) => {
   const { loading, error, dispatch } = useContext(TaskContext);
 
+  const token = localStorage.getItem("token");
+
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -61,7 +63,11 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
       try {
         const res = await fetch(
           import.meta.env.VITE_BACKEND_URL + `/users?query=${search}`,
-          { credentials: "include" }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
         setSuggestions(data);
@@ -91,7 +97,9 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
         {
           method: "POST",
           body: formData,
-          credentials: "include", // envía la cookie JWT
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -128,9 +136,10 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
 
       const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/task/new", {
         method: "POST",
-        credentials: "include",
+
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newTask),
       });
@@ -168,8 +177,11 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
       if (urlFiles.length > 0) {
         await fetch(`${import.meta.env.VITE_BACKEND_URL}/upload/delete`, {
           method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({ files: urlFiles }),
         });
       }

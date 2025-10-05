@@ -3,7 +3,6 @@ import mUser from "../models/mUser.js";
 
 export async function protect(req, res, next) {
   try {
-    // const token = req.cookies.colabdoToken;
     const token =
       req.headers.authorization?.replace("Bearer ", "") ||
       req.cookies.colabdoToken;

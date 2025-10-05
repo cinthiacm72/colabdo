@@ -29,7 +29,6 @@ const Login = () => {
     try {
       const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/login", {
         method: "POST",
-        // ❌ ELIMINADO: credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -46,12 +45,12 @@ const Login = () => {
         };
       }
 
-      // ✅ NUEVO: Guardar el token en localStorage
+      // ✅ Guardar el token en localStorage
       if (data.token) {
         localStorage.setItem("token", data.token);
       }
 
-      // ✅ NUEVO: Guardar el usuario en localStorage (opcional, ya lo tienes en el contexto)
+      // ✅ Guardar el usuario en localStorage (opcional, ya lo tienes en el contexto)
       localStorage.setItem("user", JSON.stringify(data.details));
 
       setMessage({

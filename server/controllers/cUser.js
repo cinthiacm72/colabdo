@@ -36,18 +36,8 @@ const cUser = {
 
       res.status(200).json({
         details: { ...otherDetails },
-        token: token, // ← AGREGAR esta línea
+        token: token,
       });
-
-      /*   res
-        .cookie("colabdoToken", token, {
-          httpOnly: true,
-          sameSite: "none",
-          secure: true,
-          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
-        })
-        .status(200)
-        .json({ details: { ...otherDetails } }); */
     } catch (err) {
       next(err);
     }

@@ -3,7 +3,7 @@ import ButtonLogout from "./ButtonLogout.jsx";
 
 const HeaderNav = ({ setModalContent, setOpenModalDialog, user }) => {
   return (
-    <div className="flex flex-jc-between flex-a-center margin-top-4 margin-bottom-10">
+    <div className="header-nav flex flex-jc-between flex-a-center">
       <div className="bold">{formatDate(new Date().toISOString())}</div>
       <nav className="flex flex-jc-center flex-a-center flex-gap-2">
         <button

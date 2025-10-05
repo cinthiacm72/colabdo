@@ -10,6 +10,9 @@ const ModalContentUpdate = ({
 }) => {
   const { loading, error, dispatch } = useContext(TaskContext);
 
+  // ✅ Obtener el token una sola vez al inicio
+  const token = localStorage.getItem("token");
+
   const currentTask = data.find((task) => task._id === taskIdToUpdate);
 
   const [currentTaskToUpdate, setCurrentTaskToUpdate] = useState({
@@ -76,9 +79,10 @@ const ModalContentUpdate = ({
         import.meta.env.VITE_BACKEND_URL + `/task/update/${taskIdToUpdate}`,
         {
           method: "PUT",
-          credentials: "include",
+
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(updatedTask),
         }

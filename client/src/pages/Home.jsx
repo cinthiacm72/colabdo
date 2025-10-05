@@ -12,8 +12,8 @@ const Home = () => {
   const INITIAL_TASK_TYPE = "totales";
   const { user } = useContext(AuthContext);
 
-  // ✅ DEFINIR EL TOKEN UNA SOLA VEZ AQUÍ
-  const token = localStorage.getItem("token");
+  // ✅ Función helper que siempre obtiene el token actualizado
+  const getToken = () => localStorage.getItem("token");
 
   const [openModalDialog, setOpenModalDialog] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -36,12 +36,9 @@ const Home = () => {
 
       const res = await fetch(url.toString(), {
         method: "GET",
-        // ❌ ELIMINADO: credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
-          // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
-          // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+          Authorization: `Bearer ${getToken()}`,
         },
       });
 
@@ -65,12 +62,9 @@ const Home = () => {
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/priority",
         {
           method: "GET",
-          // ❌ ELIMINADO: credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
-            // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
-            // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+            Authorization: `Bearer ${getToken()}`,
           },
         }
       );
@@ -88,12 +82,9 @@ const Home = () => {
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/overdue",
         {
           method: "GET",
-          // ❌ ELIMINADO: credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
-            // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
-            // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+            Authorization: `Bearer ${getToken()}`,
           },
         }
       );
@@ -110,12 +101,9 @@ const Home = () => {
         import.meta.env.VITE_BACKEND_URL + "/tasks/count/today",
         {
           method: "GET",
-          // ❌ ELIMINADO: credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ NUEVO: Agregar el token
-            // ❌ ELIMINADO: "Access-Control-Allow-Credentials": true,
-            // ❌ ELIMINADO: "Access-Control-Allow-Origin": import.meta.env.VITE_CLIENT_URL,
+            Authorization: `Bearer ${getToken()}`,
           },
         }
       );
@@ -127,7 +115,7 @@ const Home = () => {
 
   return (
     <>
-      <header>
+      <header className="main-header">
         <HeaderNav
           setModalContent={setModalContent}
           setOpenModalDialog={setOpenModalDialog}

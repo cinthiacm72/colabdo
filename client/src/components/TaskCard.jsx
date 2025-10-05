@@ -23,6 +23,8 @@ const TaskCard = ({
 
   const [message, setMessage] = useState(null);
 
+  const token = localStorage.getItem("token");
+
   const filteredSharedWith = item.sharedWith.filter(
     (sharedUser) => sharedUser._id !== user._id
   );
@@ -45,8 +47,10 @@ const TaskCard = ({
         import.meta.env.VITE_BACKEND_URL + `/task/delete/${taskId}`,
         {
           method: "DELETE",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

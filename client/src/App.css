@@ -83,6 +83,7 @@ a:hover {
 #root {
   width: min(1200px, 96%);
   margin-inline: auto;
+
   /* min-height: 100svh; */
 }
 
@@ -254,8 +255,33 @@ a:hover {
   object-fit: "cover";
 }
 
+.main-header {
+  padding-block-start: 90px;
+  position: sticky;
+  top: -150px;
+  z-index: 900;
+  box-shadow: rgba(0, 0, 0) 0px 19px 18px, rgba(0, 0, 0, 0.1) 0px 15px 12px;
+  background-color: black;
+}
+
+.header-nav {
+  position: fixed;
+  z-index: 900;
+  top: 0;
+  inset-inline: auto;
+  width: min(1200px, 96%);
+  height: 70px;
+
+  background-color: hsl(var(--clr-black));
+  border-block-end: 1px hsl(var(--clr-accent) / 0.6) solid;
+}
+
 /*  Main Menu
    ========================================================================== */
+.main-menu-list {
+  /*  position: sticky;
+  top: 300px; */
+}
 
 .main-menu-list {
   display: flex;
