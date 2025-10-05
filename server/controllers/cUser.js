@@ -39,7 +39,6 @@ const cUser = {
           httpOnly: true,
           sameSite: "none",
           secure: true,
-          path: "/",
           maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
         })
         .status(200)
