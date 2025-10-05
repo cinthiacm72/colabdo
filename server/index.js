@@ -9,14 +9,13 @@ import { errorHandler } from "./middlewares/error.js";
 
 const app = express();
 
-//dotenv.config();
 const port = process.env.PORT || 3000;
 const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 
 //app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: clientUrl,
+    origin: "https://colabdo-client.vercel.app" || clientUrl,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
@@ -29,12 +28,6 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 app.use(express.json());
-
-app.use(
-  cors({
-    origin: clientUrl,
-  })
-);
 
 app.get("/", (req, res) => {
   res.send("Hola Mundo!");
