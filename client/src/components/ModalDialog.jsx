@@ -7,6 +7,24 @@ const ModalDialog = ({ children, isOpen, onClose }) => {
   const [closing, setClosing] = useState(false);
 
   useEffect(() => {
+    const root = document.getElementById("root");
+
+    if (isOpen && !closing) {
+      root.style.position = "fixed";
+      root.style.width = "100%"; // evita salto de layout
+    } else {
+      root.style.position = "";
+      root.style.width = "";
+    }
+
+    // Limpieza si el componente se desmonta
+    return () => {
+      root.style.position = "";
+      root.style.width = "";
+    };
+  }, [isOpen, closing]);
+
+  useEffect(() => {
     const dialog = dialogRef.current;
 
     if (isOpen && dialog) {

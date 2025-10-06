@@ -81,7 +81,7 @@ a:hover {
 }
 
 #root {
-  width: min(1200px, 96%);
+  width: min(1200px, 94%);
   margin-inline: auto;
 
   /* min-height: 100svh; */
@@ -557,7 +557,8 @@ dialog {
   width: min(600px, 100%);
   max-height: fit-content;
   height: auto;
-  overflow: visible;
+  max-height: 100vh;
+  overflow-y: auto;
   margin-inline: auto;
   padding: var(--br-padding);
   border-radius: var(--br-parent);
@@ -771,8 +772,6 @@ dialog::backdrop {
  ========================================================================== */
 
 .modal {
-  max-height: 100vh;
-  overflow-y: auto;
   transition: opacity 4s ease, transform 4s ease;
 }
 
