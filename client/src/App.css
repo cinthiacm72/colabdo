@@ -533,19 +533,6 @@ a:hover {
   background-color: hsl(var(--clr-success));
 }
 
-/*  User
-   ========================================================================== */
-
-/* .user-box {
-  display: flex;
-  align-items: center;
-}
-
-.user-box img {
-  border-radius: 100vmin;
-  width: 60px;
-} */
-
 /*  Modal
    ========================================================================== */
 
