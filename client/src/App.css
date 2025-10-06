@@ -551,7 +551,7 @@ a:hover {
 
 dialog {
   position: fixed;
-  top: 0;
+  /* top: 0; */
   z-index: 900;
   inset: 0;
   width: min(600px, 100%);
@@ -771,6 +771,8 @@ dialog::backdrop {
  ========================================================================== */
 
 .modal {
+  max-height: 100vh;
+  overflow-y: auto;
   transition: opacity 4s ease, transform 4s ease;
 }
 
