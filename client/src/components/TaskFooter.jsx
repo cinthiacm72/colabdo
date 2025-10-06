@@ -11,12 +11,12 @@ const TaskFooter = ({
       <div className="footer-sharedwith">
         {finalSharedWith.length > 0 ? (
           <>
-            <p className="margin-bottom-2 fs-tiny">Compartido con:</p>
+            <p className="margin-bottom-2 fs-x-tiny">Compartido con:</p>
             <ul className="footer-sharedwith-list reset-list">
               {finalSharedWith.map((user, index) => (
                 <li
                   style={{
-                    left: `${index * 50}px`,
+                    left: `${index * 46}px`,
                   }}
                   key={user._id || index}
                 >
@@ -59,7 +59,7 @@ const TaskFooter = ({
               handleDelete(item._id);
             }}
           >
-            Eliminar
+            Borrar
           </button>
         </div>
       </div>

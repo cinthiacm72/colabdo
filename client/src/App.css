@@ -4,7 +4,7 @@
   /* Fonts */
   --fs-2x-tiny: 0.6rem;
   --fs-x-tiny: 0.7rem;
-  --fs-tiny: 0.9rem;
+  --fs-tiny: 0.83rem;
   --fs-small: 1rem;
   --fs-normal: 1.3rem;
   --fs-large: 1.5rem;
@@ -112,6 +112,7 @@ a:hover {
 
 .fs-normal {
   font-size: var(--fs-normal);
+  line-height: 1;
 }
 
 .fs-small {
@@ -249,10 +250,11 @@ a:hover {
 }
 
 .user-avatar-s {
-  width: 50px;
+  width: 54px;
   aspect-ratio: 1 / 1;
   border-radius: 100vmin;
   object-fit: "cover";
+  box-shadow: rgba(0, 0, 0, 0.5) -10px 0px 15px, rgba(0, 0, 0, 0) -10px 0px 15px;
 }
 
 .main-header {
@@ -270,8 +272,7 @@ a:hover {
   top: 0;
   inset-inline: auto;
   width: min(1200px, 96%);
-  height: 70px;
-
+  height: 80px;
   background-color: hsl(var(--clr-black));
   border-block-end: 1px hsl(var(--clr-accent) / 0.4) solid;
 }
@@ -312,10 +313,10 @@ a:hover {
 .button-outline-l > a {
   display: inline-block;
   /*   padding: 0.6em 1.6em; */
-  padding: 0.7em 1.2em;
+  padding: 0.4em 0.8em;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-size: var(--fs-normal);
+  font-size: 1.2rem;
 
   text-decoration: none;
   text-align: center;
@@ -476,7 +477,7 @@ a:hover {
   font-size: var(--fs-tiny);
   color: inherit;
   text-decoration: none;
-  padding: 0.4em 1em;
+  padding: 0.4em 0.6em;
   border: none;
   border-radius: var(--br-child);
   border-radius: var(--br-child);
