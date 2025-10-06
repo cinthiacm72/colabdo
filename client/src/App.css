@@ -258,7 +258,7 @@ a:hover {
 }
 
 .main-header {
-  padding-block-start: 90px;
+  padding-block-start: 110px;
   position: sticky;
   top: -160px;
   z-index: 900;
@@ -274,7 +274,6 @@ a:hover {
   width: min(1200px, 96%);
   height: 80px;
   background-color: hsl(var(--clr-black));
-  border-block-end: 1px hsl(var(--clr-accent) / 0.4) solid;
 }
 
 /*  Main Menu
