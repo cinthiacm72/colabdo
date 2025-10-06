@@ -119,7 +119,7 @@ const Register = () => {
   return (
     <section className="container-fluid-s">
       <ButtonGoBack />
-      <h1 className="margin-bottom-4 fs-x-large bold text-white">
+      <h1 className="margin-bottom-4 fs-x-huge bold text-white">
         Por favor, registrate.
       </h1>
       <form

@@ -312,11 +312,11 @@ a:hover {
 .button-outline-l > a {
   display: inline-block;
   /*   padding: 0.6em 1.6em; */
-  padding: 0.9em 1.2em;
+  padding: 0.7em 1.2em;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--fs-normal);
-  font-size: 1rem;
+
   text-decoration: none;
   text-align: center;
   color: inherit;

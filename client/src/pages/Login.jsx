@@ -87,8 +87,8 @@ const Login = () => {
     <>
       <section className="container-fluid-s">
         <ButtonGoBack />
-        <h1 className="fs-x-large bold text-white">¡Bienvenido a ColabDo!</h1>
-        <p className="margin-bottom-6">Ingresa tus datos.</p>
+        <h1 className="fs-x-huge bold text-white">¡Bienvenido a ColabDo!</h1>
+        <p className="fs-small margin-bottom-6">Ingresa tus datos.</p>
         <form className="flex flex-column flex-gap-4 margin-bottom-4">
           <label className="flex flex-column">
             Usuario:
