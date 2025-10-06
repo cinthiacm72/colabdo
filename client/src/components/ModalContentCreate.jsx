@@ -206,7 +206,7 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
 
   return (
     <section className="modal text-white">
-      <h2 className="fs-large bold">Crear una Tarea</h2>
+      <h2 className="fs-x-large bold">Crear una Tarea</h2>
 
       <div className="flex flex-wrap flex-gap-sm margin-top-4 margin-bottom-2">
         {files.length > 0 ? (

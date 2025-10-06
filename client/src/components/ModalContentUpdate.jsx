@@ -132,7 +132,7 @@ const ModalContentUpdate = ({
 
   return (
     <section className="modal text-white">
-      <h2 className="fs-large bold margin-bottom-4">Editar Tarea</h2>
+      <h2 className="fs-x-large bold margin-bottom-4">Editar Tarea</h2>
 
       <form
         className="flex flex-column flex-gap-4 margin-bottom-4"
