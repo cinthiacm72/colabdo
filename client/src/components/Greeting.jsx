@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Greeting = ({ user, taskTypeText, data }) => {
   return (
     <div className="margin-bottom-3">
-      <h1 className="margin-bottom-1 text-white fs-x-huge bold">
+      <h1 className="margin-bottom-1 text-white fs-x-large bold">
         ¡Hola, {user.username}! 👋
       </h1>
       <Link to="/user">

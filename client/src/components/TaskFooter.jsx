@@ -39,7 +39,7 @@ const TaskFooter = ({
           ""
         )}
       </div>
-      <div className="flex flex-jc-between  flex-a-center">
+      <div className="flex flex-jc-between flex-a-center">
         <div className="flex flex-gap-2 flex-a-center">
           <button
             className="button-solid-l button-solid-l-accent"

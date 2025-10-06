@@ -8,7 +8,7 @@
   --fs-small: 1rem;
   --fs-normal: 1.3rem;
   --fs-large: 1.5rem;
-  --fs-x-large: 1.7rem;
+  --fs-x-large: 1.85rem;
   --fs-x-huge: 2.5rem;
   --fs-x-gigantic: clamp(2.3328rem, 2.0827rem + 1.7504vw, 5.0518rem);
   --fs-x-enormous: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
@@ -260,7 +260,7 @@ a:hover {
 .main-header {
   padding-block-start: 90px;
   position: sticky;
-  top: -190px;
+  top: -160px;
   z-index: 900;
   box-shadow: rgba(0, 0, 0) 0px 19px 18px, rgba(0, 0, 0, 0.1) 0px 15px 12px;
   background-color: black;
@@ -574,7 +574,7 @@ dialog::backdrop {
 .task-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-3);
+  gap: var(--space-6);
   list-style: none;
   margin-block: var(--space-8);
   padding-inline-start: 0;
@@ -629,7 +629,6 @@ dialog::backdrop {
 }
 
 .task-item-overlay-dark {
-  /*   filter: saturate(0) opacity(1); */
   background-color: hsl(var(--clr-dark) / 0.6);
 }
 
@@ -638,21 +637,14 @@ dialog::backdrop {
   flex-direction: column;
   gap: var(--space-4);
   background-color: hsl(var(--clr-dark) / 0.6);
-  /* background-color: hsl(var(--clr-black) / 0.25); */
-  /*   border-top: 1px solid hsl(var(--clr-black));
-  border-bottom: 1px solid hsl(var(--clr-black)); */
-
-  /*   border-radius: var(--br-parent);
-  padding: var(--br-padding);
-  background-color: hsl(var(--clr-dark)); */
-  /* border-block: 2px solid hsl(var(--clr-accent) / 0.3); */
 }
-
 .task-item-main,
 .task-item-footer {
-  /*   border-radius: var(--br-parent); */
-  /*  border-top: 1px solid hsl(var(--clr-black)); */
   padding: var(--br-padding);
+}
+
+.task-item-footer {
+  padding-block-end: 40px;
 }
 
 .task-item-img {
