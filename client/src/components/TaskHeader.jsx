@@ -3,7 +3,7 @@ import { formatDate } from "../utils/formatDate";
 const TaskHeader = ({ fetchTasks, setTaskTypeText, item }) => {
   return (
     <header className="task-item-header">
-      <p className="fs-small text-accent">
+      <p className="fs-small ">
         Vence el <span className="bold">{formatDate(item.dueDate)}</span>
       </p>
 
