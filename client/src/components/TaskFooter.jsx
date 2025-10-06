@@ -11,16 +11,17 @@ const TaskFooter = ({
       <div className="footer-sharedwith">
         {finalSharedWith.length > 0 ? (
           <>
-            <p className="margin-bottom-2 fs-2x-tiny">Compartido con:</p>
+            <p className="margin-bottom-2 fs-tiny">Compartido con:</p>
             <ul className="footer-sharedwith-list reset-list">
               {finalSharedWith.map((user, index) => (
                 <li
                   style={{
-                    left: `${index * 30}px`,
+                    left: `${index * 50}px`,
                   }}
                   key={user._id || index}
                 >
                   <img
+                    className="user-avatar-s"
                     src={
                       user.images.length === 0
                         ? "/assets/imgs/default-avatar.png"
@@ -29,7 +30,7 @@ const TaskFooter = ({
                     alt={user.name}
                     title={user.name}
                   />
-                  <p className="fs-x-tiny">{user.name}</p>
+                  <p className="fs-tiny">{user.name}</p>
                 </li>
               ))}
             </ul>
