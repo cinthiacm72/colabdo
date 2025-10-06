@@ -1,4 +1,4 @@
-const CACHE_NAME = "colabDo-cache-v1";
+const CACHE_NAME = "colabDo-cache-v2";
 const urlsToCache = ["/", "/index.html", "/favicon.ico"];
 
 // Instalar y guardar en caché archivos iniciales
