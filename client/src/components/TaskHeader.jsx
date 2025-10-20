@@ -3,9 +3,7 @@ import { formatDate } from "../utils/formatDate";
 const TaskHeader = ({ fetchTasks, setTaskTypeText, item }) => {
   return (
     <header className="task-item-header">
-      <p className="fs-small ">
-        Vence el <span className="bold">{formatDate(item.dueDate)}</span>
-      </p>
+      <p className="fs-large ">{formatDate(item.dueDate)}</p>
 
       <button
         className={`button-solid-s ${
