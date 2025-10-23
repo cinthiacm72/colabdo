@@ -602,6 +602,8 @@ dialog::backdrop {
   inset: 0;
   isolation: isolate;
   border-radius: var(--br-parent);
+  padding-inline: var(--space-4);
+  text-align: center;
 }
 
 .task-item-overlay-success {
@@ -657,6 +659,11 @@ dialog::backdrop {
 
   /*   
   border-radius: var(--br-parent); */
+}
+
+.task-item-header-danger {
+  border-radius: var(--br-parent) var(--br-parent) 0 0;
+  background-color: hsl(var(--clr-danger));
 }
 
 .task-item-icon {
@@ -753,6 +760,25 @@ dialog::backdrop {
     opacity: 0;
     transform: translateY(-10px);
   }
+}
+
+/*  Tags
+   ========================================================================== */
+
+.tag {
+  display: grid;
+  place-items: center;
+  width: fit-content;
+  margin-inline: auto 0;
+  padding: 1rem;
+  aspect-ratio: 1/1;
+  border-radius: 100vmin;
+  font-size: var(--fs-tiny);
+  text-align: center;
+}
+
+.tag-danger {
+  background-color: hsl(var(--clr-danger));
 }
 
 /*  Modal

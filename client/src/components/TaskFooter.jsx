@@ -50,16 +50,26 @@ const TaskFooter = ({
               setTaskIdToUpdate(item._id);
             }}
           >
-            Editar
+            <span className="visually-hidden">Editar</span>
+            <img
+              style={{ width: "24px" }}
+              src="/assets/imgs/icon-edit.svg"
+              alt=""
+            />
           </button>
           <button
-            className="button-outline-l button-outline-l-accent"
+            className="button-outline-l button-outline-l-danger"
             type="button"
             onClick={() => {
               handleDelete(item._id);
             }}
           >
-            Borrar
+            <span className="visually-hidden">Borrar</span>
+            <img
+              style={{ width: "24px" }}
+              src="/assets/imgs/icon-trash-can.svg"
+              alt=""
+            />
           </button>
         </div>
       </div>
