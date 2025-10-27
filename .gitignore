@@ -30,6 +30,7 @@ logs/
 *.sln
 *.sw?
 
+
 # ---------------------------------
 # Environment variables
 # ---------------------------------
@@ -41,6 +42,12 @@ client/.env
 .env.local
 .env.production
 .env.development.local
+
+# ---------------------------------
+# copy Files
+# ---------------------------------
+* copy.*
+
 
 # ---------------------------------
 # Optional

@@ -8,10 +8,13 @@ const TaskOverlayStatus = ({
   return (
     <div className="task-item-overlay task-item-overlay-dark">
       <p style={{ fontSize: "40px" }}>😴</p>
-      <p className="fs-large bold margin-bottom-4">¡Tarea Inactiva!</p>
+      <p className="fs-large bold margin-bottom-4 text-center">
+        ¡Tarea Inactiva!
+      </p>
+      <p className="text-center margin-bottom-4">{item.title}</p>
       <div className="flex flex-gap-2">
         <button
-          className="button-solid-l button-solid-l-white"
+          className="button-solid-l button-solid-l-white flex flex-a-center flex-gap-1"
           type="button"
           onClick={() => {
             setModalContent("update");
@@ -19,15 +22,25 @@ const TaskOverlayStatus = ({
             setTaskIdToUpdate(item._id);
           }}
         >
+          <img
+            style={{ width: "20px" }}
+            src="/assets/imgs/icon-edit.svg"
+            alt=""
+          />
           Editar
         </button>
         <button
-          className="button-solid-l button-solid-l-danger"
+          className="button-solid-l button-solid-l-danger flex flex-a-center flex-gap-1"
           type="button"
           onClick={() => {
             handleDelete(item._id);
           }}
         >
+          <img
+            style={{ width: "20px", filter: "invert(1) brightness(100)" }}
+            src="/assets/imgs/icon-trash-can.svg"
+            alt=""
+          />
           Eliminar
         </button>
       </div>
