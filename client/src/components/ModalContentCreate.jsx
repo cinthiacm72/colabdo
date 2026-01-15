@@ -344,8 +344,9 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
                   setSuggestions([]);
                 }}
               >
-                <div className="fs-small margin-top-2">
+                <div className="fs-tiny margin-top-2">
                   <span>{user.label}</span>
+                  {/* {console.log(user.label)} */}
                 </div>
               </li>
             ))}
@@ -361,7 +362,7 @@ const ModalContentCreate = ({ setData, onClose, setClosing }) => {
                   key={user.value}
                 >
                   <div>
-                    <span className="text-accent">{user.label}</span>
+                    <span className="fs-x-tiny text-accent">{user.label}</span>
                   </div>
                   <button
                     className="button-solid-s button-solid-s-white"

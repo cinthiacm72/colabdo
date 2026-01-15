@@ -26,8 +26,8 @@ const TaskHeader = ({ fetchTasks, setTaskTypeText, item }) => {
     <header
       className={`${
         isToday
-          ? "task-item-header task-item-header-danger"
-          : "task-item-header"
+          ? "card-item-header card-item-header-danger"
+          : "card-item-header"
       }`}
     >
       <p className="fs-large ">

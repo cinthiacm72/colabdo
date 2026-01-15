@@ -10,9 +10,15 @@ import Register from "./pages/Register";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
+
+    // Esperar a que termine la validación
+    if (loading) {
+      return <div>Cargando...</div>;
+    }
+
     if (!user) {
-      return <Navigate to='/welcome' />;
+      return <Navigate to="/welcome" />;
     }
     return children;
   };
@@ -21,9 +27,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/welcome' element={<Welcome />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
             index
             element={
@@ -33,7 +39,7 @@ function App() {
             }
           />
           <Route
-            path='/user'
+            path="/user"
             element={
               <ProtectedRoute>
                 <User />

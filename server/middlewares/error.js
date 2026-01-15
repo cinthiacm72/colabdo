@@ -1,3 +1,5 @@
+import multer from "multer";
+
 // Crea manualmente un error con un mensaje y un status (para lanzar con next()).
 export function createError(status, message, details = []) {
   const err = new Error();
@@ -12,6 +14,30 @@ export function createError(status, message, details = []) {
 // Middleware de manejo de errores centralizado
 export function errorHandler(err, req, res, next) {
   console.error(err);
+
+  // Manejo de errores de Multer
+  // Tamaño de archivo excedido
+  if (err instanceof multer.MulterError) {
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).json({
+        message: "El archivo supera el tamaño permitido.",
+        details: [],
+      });
+    }
+
+    return res.status(400).json({
+      message: "Error al subir el archivo.",
+      details: [err.message],
+    });
+  }
+
+  // Error lanzado desde fileFilter (tipo no permitido)
+  if (err.message?.includes("Formato no permitido")) {
+    return res.status(400).json({
+      message: err.message,
+      details: [],
+    });
+  }
 
   // Manejo de errores de Mongoose
   if (err.name === "ValidationError") {

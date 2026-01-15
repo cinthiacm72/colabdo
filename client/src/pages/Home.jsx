@@ -4,9 +4,12 @@ import ModalDialog from "../components/ModalDialog";
 import TaskCard from "../components/TaskCard";
 import ModalContentCreate from "../components/ModalContentCreate";
 import ModalContentUpdate from "../components/ModalContentUpdate";
+import ModalContentConfirmDelete from "../components/ModalContentConfirmDelete";
 import HeaderNav from "../components/HeaderNav";
 import Greeting from "../components/Greeting.jsx";
 import MainMenu from "../components/MainMenu.jsx";
+
+import Notifications from "../components/Notifications.jsx";
 
 const Home = () => {
   const INITIAL_TASK_TYPE = "totales";
@@ -17,7 +20,9 @@ const Home = () => {
 
   const [openModalDialog, setOpenModalDialog] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const [taskIdToUpdate, setTaskIdToUpdate] = useState(undefined);
+  /*   const [taskIdToUpdate, setTaskIdToUpdate] = useState(undefined); */
+  const [taskIdToUpdate, setTaskIdToUpdate] = useState(null);
+  const [confirmAction, setConfirmAction] = useState(null);
 
   const [data, setData] = useState([]);
 
@@ -123,6 +128,16 @@ const Home = () => {
         />
 
         <Greeting user={user} taskTypeText={taskTypeText} data={data} />
+        {/* 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: 16,
+          }}
+        >
+          <Notifications />
+        </div> */}
 
         <MainMenu
           fetchTasks={fetchTasks}
@@ -141,6 +156,7 @@ const Home = () => {
             onClose={() => {
               setOpenModalDialog(false);
               setModalContent(null);
+              setConfirmAction(null);
             }}
           >
             {modalContent === "create" && (
@@ -160,13 +176,28 @@ const Home = () => {
                 taskIdToUpdate={taskIdToUpdate}
               />
             )}
+
+            {modalContent === "confirm-delete" && (
+              <ModalContentConfirmDelete
+                onConfirm={() => {
+                  /* console.log("Confirmando borrado", confirmAction); */
+                  confirmAction?.();
+                  setConfirmAction(null);
+                  setOpenModalDialog(false);
+                }}
+                onCancel={() => {
+                  setConfirmAction(null);
+                  setOpenModalDialog(false);
+                }}
+              />
+            )}
           </ModalDialog>
         )}
-        <ul className="task-list">
+        <ul className="card-list card-list-s">
           {data.length != 0 ? (
             data.map((item) => (
               <TaskCard
-                className="task-item"
+                className="card-item"
                 key={item._id}
                 item={item}
                 data={data}
@@ -174,13 +205,14 @@ const Home = () => {
                 setOpenModalDialog={setOpenModalDialog}
                 setTaskIdToUpdate={setTaskIdToUpdate}
                 setModalContent={setModalContent}
+                setConfirmAction={setConfirmAction}
                 user={user}
                 fetchTasks={fetchTasks}
                 setTaskTypeText={setTaskTypeText}
               />
             ))
           ) : (
-            <li className="task-item task-item-empty">
+            <li className="card-item card-item-empty">
               <p className="fs-large bold padding-top-4 text-center padding-bottom-4 padding-inline-4">
                 No tenes tareas.
               </p>

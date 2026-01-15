@@ -3,11 +3,12 @@ const TaskFooter = ({
   setModalContent,
   setOpenModalDialog,
   setTaskIdToUpdate,
+  setConfirmAction,
   item,
   handleDelete,
 }) => {
   return (
-    <footer className="task-item-footer flex flex-jc-between flex-a-center text-accent">
+    <footer className="card-item-footer flex flex-jc-between flex-a-center text-accent">
       <div className="footer-sharedwith">
         {finalSharedWith.length > 0 ? (
           <>
@@ -61,7 +62,13 @@ const TaskFooter = ({
             className="button-outline-l button-outline-l-danger"
             type="button"
             onClick={() => {
-              handleDelete(item._id);
+              setConfirmAction(() => () => {
+                // Se ejecuta recién cuando el usuario confirma en el modal
+                handleDelete(item._id);
+              });
+              setModalContent("confirm-delete");
+              setOpenModalDialog(true);
+              /* console.log("Preparando borrado de", item._id); */
             }}
           >
             <span className="visually-hidden">Borrar</span>

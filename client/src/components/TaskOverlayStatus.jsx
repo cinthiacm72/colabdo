@@ -3,10 +3,11 @@ const TaskOverlayStatus = ({
   setOpenModalDialog,
   setTaskIdToUpdate,
   handleDelete,
+  setConfirmAction,
   item,
 }) => {
   return (
-    <div className="task-item-overlay task-item-overlay-dark">
+    <div className="card-item-overlay card-item-overlay-dark">
       <p style={{ fontSize: "40px" }}>😴</p>
       <p className="fs-large bold margin-bottom-4 text-center">
         ¡Tarea Inactiva!
@@ -33,7 +34,11 @@ const TaskOverlayStatus = ({
           className="button-solid-l button-solid-l-danger flex flex-a-center flex-gap-1"
           type="button"
           onClick={() => {
-            handleDelete(item._id);
+            setConfirmAction(() => () => {
+              handleDelete(item._id);
+            });
+            setModalContent("confirm-delete");
+            setOpenModalDialog(true);
           }}
         >
           <img
@@ -41,7 +46,7 @@ const TaskOverlayStatus = ({
             src="/assets/imgs/icon-trash-can.svg"
             alt=""
           />
-          Eliminar
+          Borrar
         </button>
       </div>
     </div>

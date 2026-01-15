@@ -3,10 +3,11 @@ const TaskOverlayComplete = ({
   setOpenModalDialog,
   setTaskIdToUpdate,
   handleDelete,
+  setConfirmAction,
   item,
 }) => {
   return (
-    <div className="task-item-overlay task-item-overlay-success">
+    <div className="card-item-overlay card-item-overlay-success">
       <p style={{ fontSize: "40px" }}>🥳</p>
       <p className="fs-large bold margin-bottom-4">¡Tarea Completa!</p>
       <p className="text-center margin-bottom-4">{item.title}</p>
@@ -31,15 +32,21 @@ const TaskOverlayComplete = ({
           className="button-solid-l button-solid-l-danger flex flex-a-center flex-gap-1"
           type="button"
           onClick={() => {
-            handleDelete(item._id);
+            setConfirmAction(() => () => {
+              handleDelete(item._id);
+            });
+            setModalContent("confirm-delete");
+            setOpenModalDialog(true);
           }}
+          /*   handleDelete(item._id);
+          }} */
         >
           <img
             style={{ width: "20px", filter: "invert(1) brightness(100)" }}
             src="/assets/imgs/icon-trash-can.svg"
             alt=""
           />
-          Eliminar
+          Borrar
         </button>
       </div>
     </div>

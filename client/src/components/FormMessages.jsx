@@ -18,7 +18,10 @@ const FormMessages = ({ message }) => {
 
   return (
     <>
-      <p className={`${bgClass} padding-inline-5`}>
+      <p
+        className={`${bgClass} padding-inline-5 padding-bottom-4 padding-top-2`}
+        style={{ borderRadius: "0 0 30px 30px" }}
+      >
         {messageObj.status ? `${messageObj.status.toUpperCase()}: ` : ""}
         {messageObj.message}
       </p>

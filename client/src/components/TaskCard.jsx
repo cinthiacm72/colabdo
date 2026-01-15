@@ -18,6 +18,7 @@ const TaskCard = ({
   user,
   setOpenModalDialog,
   setModalContent,
+  setConfirmAction,
 }) => {
   const { loading, error, dispatch } = useContext(TaskContext);
 
@@ -49,7 +50,7 @@ const TaskCard = ({
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: token ? `Bearer ${token}` : "",
           },
         }
       );
@@ -57,7 +58,7 @@ const TaskCard = ({
       const data = await res.json();
 
       if (!res.ok) {
-        const data = await res.json();
+        // const data = await res.json(); // REVISAR SI ES NECESARIO LEER DATA OTRA VEZ
 
         throw {
           status: "error",
@@ -70,9 +71,11 @@ const TaskCard = ({
         let urlFiles = item.images;
 
         await fetch(`${import.meta.env.VITE_BACKEND_URL}/upload/delete`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({ files: urlFiles }),
         });
       }
@@ -96,19 +99,20 @@ const TaskCard = ({
           err,
         },
       });
+    } finally {
+      dispatch({ type: "RESET_FORM" });
     }
-
-    dispatch({ type: "RESET_FORM" });
   };
 
   return (
-    <li className="task-item animate-task">
+    <li className="card-item animate-card">
       {item.completed ? (
         <TaskOverlayComplete
           setModalContent={setModalContent}
           setOpenModalDialog={setOpenModalDialog}
           setTaskIdToUpdate={setTaskIdToUpdate}
           handleDelete={handleDelete}
+          setConfirmAction={setConfirmAction}
           item={item}
         />
       ) : (
@@ -121,6 +125,7 @@ const TaskCard = ({
           setOpenModalDialog={setOpenModalDialog}
           setTaskIdToUpdate={setTaskIdToUpdate}
           handleDelete={handleDelete}
+          setConfirmAction={setConfirmAction}
           item={item}
         />
       ) : (
@@ -133,6 +138,7 @@ const TaskCard = ({
           setOpenModalDialog={setOpenModalDialog}
           setTaskIdToUpdate={setTaskIdToUpdate}
           handleDelete={handleDelete}
+          setConfirmAction={setConfirmAction}
           item={item}
         />
       )}
@@ -155,10 +161,11 @@ const TaskCard = ({
 
         <TaskFooter
           finalSharedWith={finalSharedWith}
+          item={item}
           setModalContent={setModalContent}
           setOpenModalDialog={setOpenModalDialog}
           setTaskIdToUpdate={setTaskIdToUpdate}
-          item={item}
+          setConfirmAction={setConfirmAction}
           handleDelete={handleDelete}
         />
 

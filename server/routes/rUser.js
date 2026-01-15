@@ -7,8 +7,12 @@ routes.post("/login", cUser.login);
 routes.post("/logout", cUser.logout);
 routes.post("/register", cUser.register);
 
-routes.get("/user/:username", protect, cUser.user);
+// obtener datos usuario logueado / Validar sesión
+routes.get("/me", protect, (req, res) => {
+  res.status(200).json(req.user);
+});
 
+routes.get("/user/:username", protect, cUser.user);
 routes.get("/users", protect, cUser.search);
 routes.post("/users/:userId/invite", protect, cUser.invite);
 routes.post("/users/:userId/invite/reject", protect, cUser.rejectInvitation);

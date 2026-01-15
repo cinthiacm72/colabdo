@@ -4,10 +4,11 @@ const TaskOverlayOverdue = ({
   setOpenModalDialog,
   setTaskIdToUpdate,
   handleDelete,
+  setConfirmAction,
   item,
 }) => {
   return (
-    <div className="task-item-overlay task-item-overlay-danger">
+    <div className="card-item-overlay card-item-overlay-danger">
       <p style={{ fontSize: "40px" }}>😱</p>
       <p className="fs-large bold margin-bottom-4 text-center">
         ¡Tarea Vencida el
@@ -36,7 +37,11 @@ const TaskOverlayOverdue = ({
           className="button-solid-l button-solid-l-danger flex flex-a-center flex-gap-1"
           type="button"
           onClick={() => {
-            handleDelete(item._id);
+            setConfirmAction(() => () => {
+              handleDelete(item._id);
+            });
+            setModalContent("confirm-delete");
+            setOpenModalDialog(true);
           }}
         >
           <img
@@ -44,7 +49,7 @@ const TaskOverlayOverdue = ({
             src="/assets/imgs/icon-trash-can.svg"
             alt=""
           />
-          Eliminar
+          Borrar
         </button>
       </div>
     </div>

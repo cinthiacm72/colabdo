@@ -263,6 +263,20 @@ const mTask = {
       throw err;
     }
   },
+
+  getDueBetween: async (startDate, endDate) => {
+    try {
+      await connectDB();
+      const tasks = await Task.find({
+        dueDate: { $gte: startDate, $lte: endDate },
+      })
+        .populate("user", "name email images")
+        .populate("sharedWith", "name email images");
+      return tasks;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default mTask;
