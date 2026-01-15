@@ -1,6 +1,7 @@
 import { createError } from "../middlewares/error.js";
 import mUser from "../models/mUser.js";
 import mInvitation from "../models/mInvitation.js";
+import mRevokedToken from "../models/mRevokedToken.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -29,8 +30,10 @@ const cUser = {
         );
       }
 
-      // Creación del token
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      // Creación del token  expiresIn: "12h",
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "90d",
+      });
 
       const { password, ...otherDetails } = user._doc;
 
@@ -45,15 +48,16 @@ const cUser = {
 
   logout: async (req, res, next) => {
     try {
-      // Eliminar la cookie
-      res
-        .clearCookie("colabdoToken", {
-          httpOnly: true,
-          sameSite: "none",
-          secure: true,
-        })
-        .status(200)
-        .json({ message: "Sesión cerrada correctamente." });
+      // Obtener token desde Authorization Bearer
+      const authHeader = req.headers.authorization || "";
+      const token = authHeader.replace("Bearer ", "").trim();
+
+      if (token) {
+        await mRevokedToken.add(token);
+      }
+
+      // El cliente debe borrar el token localmente (p. ej. localStorage.removeItem('token'))
+      return res.status(200).json({ message: "Sesión cerrada correctamente." });
     } catch (err) {
       next(err);
     }

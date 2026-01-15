@@ -1,5 +1,6 @@
 import { createError } from "../middlewares/error.js";
 import mTask from "../models/mTask.js";
+import mNotification from "../models/mNotification.js";
 
 // Función helper para convertir YYYY-MM-DD a medianoche local
 function parseLocalDate(dateStr) {
@@ -78,6 +79,31 @@ const cTask = {
       }
 
       // Retornas newTaskWithId para el componente ModalNewTask que requiere el _.id
+
+      // --- NUEVO: crear notificaciones para usuarios compartidos ---
+      const io = req.app.get("io");
+      const recipients = (newTaskWithId.sharedWith || []).map((u) =>
+        String(u._id)
+      );
+
+      // nombre del usuario que comparte — usar solo username
+      const senderName = req.user?.username || "Alguien";
+
+      for (const userId of recipients) {
+        await mNotification.create({
+          user: userId,
+          title: "Nueva tarea compartida",
+          body: `${senderName} te compartió la tarea "${newTaskWithId.title}"`,
+          meta: { taskId: newTaskWithId._id },
+        });
+        if (io)
+          io.to(userId).emit("notification", {
+            title: "Nueva tarea compartida",
+            body: `${senderName} te compartió la tarea "${newTaskWithId.title}"`,
+            taskId: newTaskWithId._id,
+          });
+      }
+
       return res
         .status(201)
         .json({ message: "La tarea ha sido creada.", newTaskWithId });
