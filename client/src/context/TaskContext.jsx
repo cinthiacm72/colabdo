@@ -48,7 +48,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const socket = createSocket(token);
     socketRef.current = socket;
-    socket.connect();
+    /* socket.connect(); */
 
     socket.on("connect", () => {
       console.log("Socket conectado", socket.id);
